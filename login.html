@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — Daily Calorie Plan</title>
+    <meta name="description" content="Sign in to your Daily Calorie Plan account to track calories, get personalized diet plans, and achieve your fitness goals.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥗</text></svg>">
+</head>
+<body class="login-body">
+
+    <!-- Animated background elements -->
+    <div class="login-bg">
+        <div class="bg-orb bg-orb-1"></div>
+        <div class="bg-orb bg-orb-2"></div>
+        <div class="bg-orb bg-orb-3"></div>
+        <div class="bg-grid"></div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button id="login-theme-toggle" class="login-theme-toggle" aria-label="Toggle dark mode">
+        <i data-lucide="sun" class="theme-icon-light"></i>
+        <i data-lucide="moon" class="theme-icon-dark"></i>
+    </button>
+
+    <div class="login-wrapper">
+
+        <!-- Left Hero Panel -->
+        <div class="login-hero">
+            <div class="hero-content">
+                <div class="hero-logo">
+                    <span class="hero-logo-icon">🥗</span>
+                    <span class="hero-logo-text">DailyCalorie</span>
+                </div>
+                <h1 class="hero-title">Fuel Your Body.<br>Track Your Progress.</h1>
+                <p class="hero-subtitle">Calculate your daily calorie needs, get personalized Indian diet plans, and achieve your fitness goals — all in one beautiful dashboard.</p>
+                
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <div class="feature-icon bg-primary"><i data-lucide="calculator"></i></div>
+                        <div>
+                            <strong>Smart Calculator</strong>
+                            <p>Personalized BMR & calorie estimation</p>
+                        </div>
+                    </div>
+                    <div class="hero-feature">
+                        <div class="feature-icon bg-accent"><i data-lucide="utensils-crossed"></i></div>
+                        <div>
+                            <strong>Meal Plans</strong>
+                            <p>Indian cuisine veg & non-veg options</p>
+                        </div>
+                    </div>
+                    <div class="hero-feature">
+                        <div class="feature-icon bg-secondary"><i data-lucide="bar-chart-3"></i></div>
+                        <div>
+                            <strong>Analytics</strong>
+                            <p>Beautiful charts & progress tracking</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-footer">
+                <p>© 2026 DailyCalorie Plan. Stay healthy, stay fit.</p>
+            </div>
+        </div>
+
+        <!-- Right Auth Panel -->
+        <div class="login-panel">
+            <div class="login-card">
+
+                <!-- LOGIN FORM -->
+                <div id="login-form-section" class="auth-section active">
+                    <div class="auth-header">
+                        <h2>Welcome Back 👋</h2>
+                        <p>Sign in to continue your health journey</p>
+                    </div>
+
+                    <form id="login-form" class="auth-form" onsubmit="LoginPage.handleLogin(event)">
+                        <div class="auth-field">
+                            <label for="login-email" class="auth-label">
+                                <i data-lucide="mail"></i> Email Address
+                            </label>
+                            <input type="email" id="login-email" class="auth-input" placeholder="you@example.com" required autocomplete="email">
+                        </div>
+                        
+                        <div class="auth-field">
+                            <label for="login-password" class="auth-label">
+                                <i data-lucide="lock"></i> Password
+                            </label>
+                            <div class="password-wrapper">
+                                <input type="password" id="login-password" class="auth-input" placeholder="Enter your password" required autocomplete="current-password" minlength="6">
+                                <button type="button" class="password-eye" onclick="LoginPage.togglePassword('login-password', this)" aria-label="Toggle password visibility">
+                                    <i data-lucide="eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="auth-options">
+                            <label class="remember-me">
+                                <input type="checkbox" id="remember-me">
+                                <span class="checkmark"></span>
+                                Remember me
+                            </label>
+                            <button type="button" class="forgot-link" onclick="LoginPage.showSection('reset')">Forgot password?</button>
+                        </div>
+
+                        <button type="submit" class="auth-btn btn-primary" id="login-btn">
+                            <i data-lucide="log-in"></i>
+                            <span>Sign In</span>
+                        </button>
+                    </form>
+
+                    <div id="login-error" class="auth-error" style="display:none;"></div>
+
+                    <div class="auth-divider">
+                        <span>New here?</span>
+                    </div>
+
+                    <button class="auth-btn btn-outline" onclick="LoginPage.showSection('signup')">
+                        <i data-lucide="user-plus"></i>
+                        <span>Create an Account</span>
+                    </button>
+                </div>
+
+                <!-- SIGNUP FORM -->
+                <div id="signup-form-section" class="auth-section">
+                    <div class="auth-header">
+                        <h2>Create Account 🚀</h2>
+                        <p>Start your personalized health journey today</p>
+                    </div>
+
+                    <form id="signup-form" class="auth-form" onsubmit="LoginPage.handleSignup(event)">
+                        <div class="auth-field">
+                            <label for="signup-name" class="auth-label">
+                                <i data-lucide="user"></i> Full Name
+                            </label>
+                            <input type="text" id="signup-name" class="auth-input" placeholder="John Doe" required minlength="2">
+                        </div>
+
+                        <div class="auth-field">
+                            <label for="signup-email" class="auth-label">
+                                <i data-lucide="mail"></i> Email Address
+                            </label>
+                            <input type="email" id="signup-email" class="auth-input" placeholder="you@example.com" required autocomplete="email">
+                        </div>
+                        
+                        <div class="auth-field">
+                            <label for="signup-password" class="auth-label">
+                                <i data-lucide="lock"></i> Password
+                            </label>
+                            <div class="password-wrapper">
+                                <input type="password" id="signup-password" class="auth-input" placeholder="At least 6 characters" required minlength="6" autocomplete="new-password">
+                                <button type="button" class="password-eye" onclick="LoginPage.togglePassword('signup-password', this)" aria-label="Toggle password visibility">
+                                    <i data-lucide="eye"></i>
+                                </button>
+                            </div>
+                            <div class="password-strength" id="password-strength">
+                                <div class="strength-bar"><div class="strength-fill" id="strength-fill"></div></div>
+                                <span class="strength-text" id="strength-text"></span>
+                            </div>
+                        </div>
+
+                        <div class="auth-field">
+                            <label for="signup-confirm" class="auth-label">
+                                <i data-lucide="shield-check"></i> Confirm Password
+                            </label>
+                            <div class="password-wrapper">
+                                <input type="password" id="signup-confirm" class="auth-input" placeholder="Re-enter password" required minlength="6" autocomplete="new-password">
+                                <button type="button" class="password-eye" onclick="LoginPage.togglePassword('signup-confirm', this)" aria-label="Toggle password visibility">
+                                    <i data-lucide="eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="auth-btn btn-primary" id="signup-btn">
+                            <i data-lucide="user-plus"></i>
+                            <span>Create Account</span>
+                        </button>
+                    </form>
+
+                    <div id="signup-error" class="auth-error" style="display:none;"></div>
+
+                    <div class="auth-divider">
+                        <span>Already have an account?</span>
+                    </div>
+
+                    <button class="auth-btn btn-outline" onclick="LoginPage.showSection('login')">
+                        <i data-lucide="log-in"></i>
+                        <span>Sign In</span>
+                    </button>
+                </div>
+
+                <!-- RESET PASSWORD FORM -->
+                <div id="reset-form-section" class="auth-section">
+                    <div class="auth-header">
+                        <h2>Reset Password 🔑</h2>
+                        <p>Enter your email to get a temporary password</p>
+                    </div>
+
+                    <form id="reset-form" class="auth-form" onsubmit="LoginPage.handleReset(event)">
+                        <div class="auth-field">
+                            <label for="reset-email" class="auth-label">
+                                <i data-lucide="mail"></i> Email Address
+                            </label>
+                            <input type="email" id="reset-email" class="auth-input" placeholder="you@example.com" required autocomplete="email">
+                        </div>
+
+                        <button type="submit" class="auth-btn btn-primary" id="reset-btn">
+                            <i data-lucide="key-round"></i>
+                            <span>Reset My Password</span>
+                        </button>
+                    </form>
+
+                    <div id="reset-error" class="auth-error" style="display:none;"></div>
+                    <div id="reset-success" class="auth-success" style="display:none;"></div>
+
+                    <div class="auth-divider">
+                        <span>Remembered it?</span>
+                    </div>
+
+                    <button class="auth-btn btn-outline" onclick="LoginPage.showSection('login')">
+                        <i data-lucide="arrow-left"></i>
+                        <span>Back to Sign In</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Auth Module -->
+    <script src="js/auth.js"></script>
+
+    <!-- Login Page Controller -->
+    <script>
+        const LoginPage = {
+            init() {
+                // Load theme
+                const theme = localStorage.getItem('dcp_theme') || 'light';
+                document.documentElement.setAttribute('data-theme', theme);
+
+                // Theme toggle
+                document.getElementById('login-theme-toggle').addEventListener('click', () => {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('dcp_theme', JSON.stringify(next));
+                });
+
+                // Password strength indicator
+                const pwdInput = document.getElementById('signup-password');
+                if (pwdInput) {
+                    pwdInput.addEventListener('input', (e) => this.updateStrength(e.target.value));
+                }
+
+                // Init icons
+                if (window.lucide) lucide.createIcons();
+
+                // Check if already logged in
+                const user = Auth.getCurrentUser();
+                if (user) {
+                    window.location.href = 'index.html';
+                }
+            },
+
+            showSection(section) {
+                document.querySelectorAll('.auth-section').forEach(s => s.classList.remove('active'));
+                const target = document.getElementById(`${section}-form-section`);
+                if (target) {
+                    target.classList.add('active');
+                    // Re-init icons for the new section
+                    setTimeout(() => { if (window.lucide) lucide.createIcons(); }, 50);
+                }
+                // Clear errors
+                document.querySelectorAll('.auth-error, .auth-success').forEach(el => el.style.display = 'none');
+            },
+
+            showError(sectionId, message) {
+                const el = document.getElementById(`${sectionId}-error`);
+                if (el) {
+                    el.textContent = message;
+                    el.style.display = 'flex';
+                    // Auto-hide after 5s
+                    setTimeout(() => { el.style.display = 'none'; }, 5000);
+                }
+            },
+
+            showSuccess(sectionId, message) {
+                const el = document.getElementById(`${sectionId}-success`);
+                if (el) {
+                    el.textContent = message;
+                    el.style.display = 'flex';
+                }
+            },
+
+            setLoading(btnId, loading) {
+                const btn = document.getElementById(btnId);
+                if (!btn) return;
+                if (loading) {
+                    btn.classList.add('loading');
+                    btn.disabled = true;
+                } else {
+                    btn.classList.remove('loading');
+                    btn.disabled = false;
+                }
+            },
+
+            handleLogin(e) {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value.trim();
+                const password = document.getElementById('login-password').value;
+
+                if (!email || !password) {
+                    this.showError('login', 'Please fill in all fields.');
+                    return;
+                }
+
+                const result = Auth.login(email, password);
+
+                if (result.success) {
+                    // Success animation then redirect
+                    document.querySelector('.login-card').classList.add('success-exit');
+                    setTimeout(() => { window.location.href = 'index.html'; }, 800);
+                } else {
+                    this.showError('login', result.error);
+                }
+            },
+
+            handleSignup(e) {
+                e.preventDefault();
+                const name = document.getElementById('signup-name').value.trim();
+                const email = document.getElementById('signup-email').value.trim();
+                const password = document.getElementById('signup-password').value;
+                const confirm = document.getElementById('signup-confirm').value;
+
+                if (!name || !email || !password || !confirm) {
+                    this.showError('signup', 'Please fill in all fields.');
+                    return;
+                }
+
+                if (password !== confirm) {
+                    this.showError('signup', 'Passwords do not match.');
+                    return;
+                }
+
+                if (password.length < 6) {
+                    this.showError('signup', 'Password must be at least 6 characters.');
+                    return;
+                }
+
+                const result = Auth.signup(email, password, name);
+
+                if (result.success) {
+                    document.querySelector('.login-card').classList.add('success-exit');
+                    setTimeout(() => { window.location.href = 'index.html'; }, 800);
+                } else {
+                    this.showError('signup', result.error);
+                }
+            },
+
+            handleReset(e) {
+                e.preventDefault();
+                const email = document.getElementById('reset-email').value.trim();
+
+                if (!email) {
+                    this.showError('reset', 'Please enter your email address.');
+                    return;
+                }
+
+                const result = Auth.resetPassword(email);
+
+                if (result.success) {
+                    this.showSuccess('reset', `✅ Your temporary password is: ${result.tempPassword} — Use it to log in.`);
+                } else {
+                    this.showError('reset', result.error);
+                }
+            },
+
+            togglePassword(inputId, btn) {
+                const input = document.getElementById(inputId);
+                if (!input) return;
+                const isPassword = input.type === 'password';
+                input.type = isPassword ? 'text' : 'password';
+                // Toggle icon
+                const icon = btn.querySelector('[data-lucide]');
+                if (icon) {
+                    icon.setAttribute('data-lucide', isPassword ? 'eye-off' : 'eye');
+                    if (window.lucide) lucide.createIcons();
+                }
+            },
+
+            updateStrength(password) {
+                const fill = document.getElementById('strength-fill');
+                const text = document.getElementById('strength-text');
+                if (!fill || !text) return;
+
+                let score = 0;
+                if (password.length >= 6) score++;
+                if (password.length >= 10) score++;
+                if (/[A-Z]/.test(password)) score++;
+                if (/[0-9]/.test(password)) score++;
+                if (/[^A-Za-z0-9]/.test(password)) score++;
+
+                const levels = [
+                    { label: '', color: 'transparent', width: '0%' },
+                    { label: 'Weak', color: '#ef4444', width: '20%' },
+                    { label: 'Fair', color: '#f59e0b', width: '40%' },
+                    { label: 'Good', color: '#FF9800', width: '60%' },
+                    { label: 'Strong', color: '#4CAF50', width: '80%' },
+                    { label: 'Excellent', color: '#22c55e', width: '100%' }
+                ];
+
+                const level = levels[score];
+                fill.style.width = level.width;
+                fill.style.background = level.color;
+                text.textContent = level.label;
+                text.style.color = level.color;
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => LoginPage.init());
+    </script>
+</body>
+</html>
